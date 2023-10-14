@@ -25,9 +25,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/*Configuration
-@EnableWebMvc
-@ComponentScan("web")*/
+
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
@@ -98,7 +96,7 @@ public class MyAppConfig implements WebMvcConfigurer {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
         properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        properties.setProperty("hibernate.format_sql",environment.getProperty("hibernate.format_sql"));
+        properties.setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
         properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         return properties;
     }
@@ -109,48 +107,10 @@ public class MyAppConfig implements WebMvcConfigurer {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
-    /*@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
-    }*/
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-
-   /* private final ApplicationContext applicationContext;
-
-    public MyAppConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
-
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/pages/");
-        templateResolver.setSuffix(".html");
-        return templateResolver;
-    }
-
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
-        return templateEngine;
-    }
-
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        registry.viewResolver(resolver);
-    }*/
 }
