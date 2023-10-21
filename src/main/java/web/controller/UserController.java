@@ -39,10 +39,16 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/form")
+    @GetMapping("/form")
     public String showFormForUpdate(@RequestParam("id") Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "user_form";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute(value = "user") User user) {
+        userService.update(user);
+        return "redirect:/";
     }
 }

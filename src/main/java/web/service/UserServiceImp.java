@@ -6,12 +6,19 @@ import web.dao.UserDao;
 import web.model.User;
 
 import javax.transaction.Transactional;
+import javax.validation.Validator;
 import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
 
     private UserDao userDao;
+    private Validator validator;
+
+    @Autowired
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
 
     @Autowired
     public void setUserDao(UserDao userDao) {
@@ -20,7 +27,6 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    @Transactional
     public List<User> getUsers() {
         return userDao.getUsers();
     }
@@ -32,9 +38,14 @@ public class UserServiceImp implements UserService {
         userDao.add(user);
     }
 
-
     @Override
     @Transactional
+    public void update(User user) {
+        userDao.update(user);
+    }
+
+
+    @Override
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }
